@@ -234,5 +234,5 @@ int main(int argc, char *argv[]) {
     free(s);
     fclose(input);
     pthread_barrier_destroy(&barrier);
-  	pthread_exit(NULL);
+    pthread_exit(NULL);
 }
