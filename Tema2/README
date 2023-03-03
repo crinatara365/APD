@@ -1,4 +1,5 @@
-Tararache Crina-Andreea, 334CB
+Tema 2 - Algoritmi parareli si distribuiti
+Nume: Tararache Crina-Andreea
 
 Am ales sa citesc din fisier folosind clasa BufferedReader deoarece aceasta este sincronizata (cu Scanner nu ar fi 
 mers) si sa scriu in fisier cu FileWriter (din aceleasi considerente). Citesc numarul de thread-uri P si creez atatea
