@@ -1,2 +1,2 @@
 # APD
-Algoritmi paraleli si distribuiti
+Algoritmi paraleli si distribuiti, Facultatea de Automatica si Calculatoare, UPB
