@@ -1,0 +1,22 @@
+Tararache Crina-Andreea, 334CB
+Algoritmi paraleli si distribuiti
+
+Am facut afisarea topologiei considerand de la bun inceput ca legatura dintre 0 si 1 nu exista.
+
+Se incepe executia programului. Daca rank-ul procesului este 0, 1, 2 sau 3 se deschide fisierul de input aferent si
+se apeleaza functia notify_workers pentru a instiinta workerii cine este coordonatorul lui: se apeleaza
+send pentru fiecare worker citit din fisier. Inapoi in main, daca procesul nu este coordonator se va face receive
+pentru a afla cine este parintele. Pana aici, toti copii isi stiu parintii. Mai departe, procesul 0 ii trimite 
+procesului 3 topologia de pana acum (0->4). Procesul 3 primeste si da mai departe procesului 2 si tot asa (0->3->2->1).
+Asadar, primul care afla topologia completa este procesul 1 care o asambleaza si o afiseaza. Apoi, procesul 1 trimite 
+inapoi tuturor coordonatorilor topologia finala pe legatura pe care a primit-o (1->2->3->0). Toti parintii astfel 
+primesc topologia finala si o afiseaza. In acest timp, procesele coordonatoare le trimit si copiilor lor topologia,
+deci tot ce mai trebuie sa facem este sa facem receive in procesele cu rank > 3. Acum ca toate procesele stiu 
+topologia, incepe partea de calcule. Procesul 0 creeaza vectorul de dimensiune dim_vector si il trimite mai departe
+procesului 3, dar si copiilor lui. Acelasi lucru fac si celelalte procese (0->3->2->1), deci acum vectorul a ajuns
+la toti workerii. Urmatoare parte se adreseaza proceselor care nu sunt coordonatoare: primesc vectorul si modifica
+doar indicii de la start la end - 1, apoi il trimit inapoi la coordonatorul lor. Variabilele start si end, in functie
+de indexul procesului worker, ne spun cate valori va modifica acel worker (index * dim_vector / nr_workerii). Mai
+departe, fiecare coordonator primeste vectorii modificati si inainte de a-l trimite la alt proces coordonator
+modifica in variabila "vector" pozitiile indicate de indexul copilului de la care a venit, apoi il trimite mai departe.
+In final, vectorul ajunge inapoi la procesul 0 care il asambleaza si il afiseaza.
