@@ -1,11 +1,10 @@
 Tararache Crina-Andreea, 334CB
+Algoritmi paraleli si distribuiti
 
-Am ales sa citesc din fisier folosind clasa BufferedReader deoarece aceasta este sincronizata (cu Scanner nu ar fi 
-mers) si sa scriu in fisier cu FileWriter (din aceleasi considerente). Citesc numarul de thread-uri P si creez atatea
-thread-uri de nivel 1. In clasa Level 1, atata timp cat thread-urile, pe rand (datorita zonei synchronized), au linii 
-de citit din fisier (fiecare linie fiind asociata unei comenzi) creeaza atatea thread-uri de nivel 2 cate produse exista 
-in comanda respectiva. In Level 2, folosim un semafor pentru a reduce numarul de thread-uri care "lucreaza" la produse
-la numarul P. In level 1 nu a fost nevoie pentru ca am creat fix P thread-uri. Mai departe, thread-urile de nivel 2
-seteaza produsul ca fiind shipped pe baza id-ului comenzii din care face parte. Intorcandu-ne in Level 1, dam join
-tuturor thread-urilor de level 2 pentru a ne asigura ca au terminat de procesat produsele comenzii; numai dupa aceea
-setam si comanda ca fiind shipped, daca numarul de produse din aceasta este diferit de 0.
+Am ales sa citesc din fisier folosind clasa BufferedReader deoarece aceasta este sincronizata (cu Scanner nu ar fi mers) si sa scriu in fisier cu FileWriter (din 
+aceleasi considerente). Citesc numarul de thread-uri P si creez atatea thread-uri de nivel 1. In clasa Level 1, atata timp cat thread-urile, pe rand (datorita zonei 
+synchronized), au linii de citit din fisier (fiecare linie fiind asociata unei comenzi) creeaza atatea thread-uri de nivel 2 cate produse exista in comanda respectiva.
+In Level 2, folosim un semafor pentru a reduce numarul de thread-uri care "lucreaza" la produse la numarul P. In level 1 nu a fost nevoie pentru ca am creat fix P 
+thread-uri. Mai departe, thread-urile de nivel 2 seteaza produsul ca fiind shipped pe baza id-ului comenzii din care face parte. Intorcandu-ne in Level 1, dam join
+tuturor thread-urilor de level 2 pentru a ne asigura ca au terminat de procesat produsele comenzii; numai dupa aceea setam si comanda ca fiind shipped, daca numarul de 
+produse din aceasta este diferit de 0.
