@@ -1,15 +1,16 @@
 Tararache Crina-Andreea
 Algoritmi parareli si distribuiti
 
-Pentru implementarea temei am folosit o bariera. Am creat nr_mapper + nr_reducers thread-uri astfel: primelor thread-uri create le-am atribuit fisierele de input pentru a functiona ca
-mappers, urmatoarelor le-am atribuit fisierul de iesire pentru a scrie in el, pentru a functiona ca reducers. La crearea thread-urilor am folosit aceeasi functie, diferenta intre cele 
-cele doua etape fiind facuta in functie. De asemenea, am creat o structura cu toti parametrii de care aveam nevoie si am dat-o ca si argument functiei executate de firele de executie.
-Avand in vedere ca listele au fost alocate dinamic le-am putut modifica la orice pas din executie. Mai departe, in functia f_thread, daca id-ul thread-ului este mai mic decat numarul
-de mappers atunci el va face treaba unui mapper: isi parcurge fisierele de input din campul parametres->files si pentru fiecare fisier calculeaza acele liste partiale. Pentru calcularea
-puterilor perfecte am folosit un fel de abordare de tip de binary search: pentru fiecare exponent de la 2 la nr_reducers+1, luam low=2 si high=value unde value este valoarea citita din 
-fisier. Luam mereu jumatatea intervalului si verificam daca ridicata la puterea exponentului este <,>,= decat numarul nostru. Daca este egal, trecem numarul in lista partiala a
-exponentului aferent si trecem la urmatorul, daca este mai mare ne deplasam in stanga intervalului si altfel in dreapta. Mentionez ca a fost nevoie de variabile unsigned long long 
-pentru ridicarea la putere pentru ca fiind prea mari numerele deveneau negative si atunci se crea un loop. Pentru a ne asigura ca toti mappers si-au terminat executia urmatorul pas a fost
-sa punem o bariera. Dupa aceea, toate thread-urile care aveau id-ul mai mare decat nr_mappers incepeau sa execute partea de reducers. Acestia apeleaza functia countDistinct pentru 
-exponentul aferent id-ului pe care il au si returneaza rezultatul in fisierul de output pe care l-au primit la inceput in structura.    
+Pentru implementarea temei am folosit o bariera. Am creat nr_mapper + nr_reducers thread-uri astfel: primelor thread-uri create le-am atribuit fisierele de input pentru 
+a functiona ca mappers, urmatoarelor le-am atribuit fisierul de iesire pentru a scrie in el, pentru a functiona ca reducers. La crearea thread-urilor am folosit aceeasi 
+functie, diferenta intre cele doua etape fiind facuta in functie. De asemenea, am creat o structura cu toti parametrii de care aveam nevoie si am dat-o ca si argument 
+functiei executate de firele de executie. Avand in vedere ca listele au fost alocate dinamic le-am putut modifica la orice pas din executie. Mai departe, in functia 
+f_thread, daca id-ul thread-ului este mai mic decat numarul de mappers atunci el va face treaba unui mapper: isi parcurge fisierele de input din campul parametres->files 
+si pentru fiecare fisier calculeaza listele partiale. Pentru calcularea puterilor perfecte am folosit o abordare de tip de binary search: pentru fiecare exponent de la 2 
+la nr_reducers+1, luam low=2 si high=value unde value este valoarea citita din fisier. Luam mereu jumatatea intervalului si verificam daca ridicata la puterea 
+exponentului este <,>,=. Daca este egal, trecem numarul in lista partiala a exponentului aferent si trecem la urmatorul, daca este mai mare ne deplasam in stanga 
+intervalului si altfel in dreapta. Mentionez ca a fost nevoie de variabile unsigned long long pentru ridicarea la putere pentru ca fiind prea mari numerele deveneau 
+negative si atunci se crea un loop. Pentru a ne asigura ca toti mappers si-au terminat executia urmatorul pas a fost sa punem o bariera. Dupa aceea, toate thread-urile 
+care aveau id-ul mai mare decat nr_mappers incepeau sa execute partea de reducers. Acestia apeleaza functia countDistinct pentru exponentul aferent id-ului pe care il 
+au si returneaza rezultatul in fisierul de output pe care l-au primit la inceput in structura.    
 
