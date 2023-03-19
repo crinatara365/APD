@@ -13,4 +13,3 @@ intervalului si altfel in dreapta. Mentionez ca a fost nevoie de variabile unsig
 negative si atunci se crea un loop. Pentru a ne asigura ca toti mappers si-au terminat executia urmatorul pas a fost sa punem o bariera. Dupa aceea, toate thread-urile 
 care aveau id-ul mai mare decat nr_mappers incepeau sa execute partea de reducers. Acestia apeleaza functia countDistinct pentru exponentul aferent id-ului pe care il 
 au si returneaza rezultatul in fisierul de output pe care l-au primit la inceput in structura.    
-
